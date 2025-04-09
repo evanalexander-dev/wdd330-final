@@ -1,4 +1,4 @@
-import { qs } from "./utils.mjs";
+import { qs, qsAll } from "./utils.mjs";
 
 /**
  * Initialize search and filter functionality
@@ -109,9 +109,7 @@ export function initSearchFilters(onSearch, onFilterChange) {
     }
 
     // Apply initial filters
-    if (typeof onFilterChange === 'function') {
-      onFilterChange(filters);
-    }
+    onFilterChange();
   }
 
   /**
@@ -124,12 +122,10 @@ export function initSearchFilters(onSearch, onFilterChange) {
     const query = searchInput.value.trim();
     filters.search = query;
 
-    if (typeof onSearch === 'function') {
-      onSearch(query);
-    }
-
     updateActiveFiltersDisplay();
     updateUrlParams();
+
+    onSearch();
   }
 
   /**
@@ -137,7 +133,7 @@ export function initSearchFilters(onSearch, onFilterChange) {
    */
   function applyFilters() {
     // Get selected regions
-    const regionCheckboxes = document.querySelectorAll('input[name="region"]:checked');
+    const regionCheckboxes = qsAll('input[name="region"]:checked');
     filters.regions = Array.from(regionCheckboxes).map(cb => cb.value);
 
     // Get selected population filter
@@ -155,9 +151,7 @@ export function initSearchFilters(onSearch, onFilterChange) {
     updateActiveFiltersDisplay();
     updateUrlParams();
 
-    if (typeof onFilterChange === 'function') {
-      onFilterChange(filters);
-    }
+    onFilterChange();
   }
 
   /**
@@ -165,7 +159,7 @@ export function initSearchFilters(onSearch, onFilterChange) {
    */
   function clearFilters() {
     // Uncheck all region checkboxes
-    document.querySelectorAll('input[name="region"]').forEach(cb => {
+    qsAll('input[name="region"]').forEach(cb => {
       cb.checked = false;
     });
 
@@ -190,9 +184,7 @@ export function initSearchFilters(onSearch, onFilterChange) {
     updateActiveFiltersDisplay();
     updateUrlParams();
 
-    if (typeof onFilterChange === 'function') {
-      onFilterChange(filters);
-    }
+    onFilterChange();
   }
 
   /**
@@ -211,10 +203,10 @@ export function initSearchFilters(onSearch, onFilterChange) {
         if (searchInput) {
           searchInput.value = '';
         }
+        updateActiveFiltersDisplay();
         updateUrlParams();
-        if (typeof onSearch === 'function') {
-          onSearch('');
-        }
+
+        onSearch();
       });
     }
 
@@ -234,9 +226,7 @@ export function initSearchFilters(onSearch, onFilterChange) {
         updateActiveFiltersDisplay();
         updateUrlParams();
 
-        if (typeof onFilterChange === 'function') {
-          onFilterChange(filters);
-        }
+        onFilterChange();
       }, 'region');
     });
 
@@ -267,9 +257,7 @@ export function initSearchFilters(onSearch, onFilterChange) {
         updateActiveFiltersDisplay();
         updateUrlParams();
 
-        if (typeof onFilterChange === 'function') {
-          onFilterChange(filters);
-        }
+        onFilterChange();
       }, 'population');
     }
 
@@ -300,9 +288,7 @@ export function initSearchFilters(onSearch, onFilterChange) {
         updateActiveFiltersDisplay();
         updateUrlParams();
 
-        if (typeof onFilterChange === 'function') {
-          onFilterChange(filters);
-        }
+        onFilterChange();
       }, 'sort');
     }
   }
@@ -366,17 +352,4 @@ export function initSearchFilters(onSearch, onFilterChange) {
 
     window.history.replaceState({}, '', newUrl);
   }
-
-  // Return public methods and state
-  return {
-    getFilters: () => ({ ...filters }),
-    setSearchQuery: (query) => {
-      filters.search = query;
-      if (searchInput) {
-        searchInput.value = query;
-      }
-      updateActiveFiltersDisplay();
-    },
-    clearAllFilters: clearFilters
-  };
 }

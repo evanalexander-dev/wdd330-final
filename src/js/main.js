@@ -1,4 +1,4 @@
-import { qs, loadHeaderFooter, renderCountryCards } from "./utils.mjs";
+import { qs, loadHeaderFooter, renderCountryCards, createErrorHTML } from "./utils.mjs";
 import { initSearchFilters } from "./search.mjs";
 import { getAllBasicCountryData } from "./data.mjs";
 
@@ -38,11 +38,7 @@ async function loadCountriesData() {
     applyFilters();
   } catch (error) {
     console.error("Error loading countries:", error);
-    countriesContainer.innerHTML = `
-      <div class="error">
-        <p>❗ Failed to load countries. Please try again later.</p>
-      </div>
-    `;
+    countriesContainer.innerHTML = createErrorHTML("Failed to load countries. Please try again later.");
   }
 }
 
@@ -125,3 +121,7 @@ function updateResultsCount() {
     resultsCountElement.textContent = `Showing ${count} of ${totalCount} countries`;
   }
 }
+
+window.addEventListener('favorites-changed', () => {
+  renderCountryCards(filteredCountries, countriesContainer);
+})

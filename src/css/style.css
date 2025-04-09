@@ -57,6 +57,27 @@ a:hover {
   color: var(--secondary-color);
 }
 
+.error-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem 1rem;
+}
+
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 500px;
+}
+
+.error-message p {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
 /* START header */
 #main-header {
   background-color: var(--primary-color);
@@ -422,6 +443,340 @@ a:hover {
 }
 /* END Country Cards */
 
+/* START Country Detail Page */
+/* Country Detail Page Styles */
+.detail-container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.back-button-container {
+  margin-bottom: 2rem;
+}
+
+.back-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.6rem 1.2rem;
+  font-family: var(--heading-font);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: inline-flex;
+  align-items: center;
+}
+
+.back-button:hover {
+  background-color: var(--secondary-color);
+}
+
+.country-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+}
+
+.country-flag-large {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.country-info-container h1 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.official-name {
+  color: #666;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+
+.detail-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.detail-column p {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+}
+
+.border-countries {
+  margin-bottom: 2rem;
+}
+
+.border-countries h3 {
+  margin-bottom: 1rem;
+}
+
+.border-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.border-button {
+  background-color: var(--card-bg);
+  color: var(--primary-color);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-family: var(--body-font);
+  font-size: 0.9rem;
+  transition: all 0.3s;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
+}
+
+.border-button:hover {
+  background-color: var(--accent-color);
+  color: white;
+  border-color: var(--accent-color);
+}
+
+.actions-container {
+  margin-top: 2rem;
+}
+
+.action-button {
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.8rem 1.5rem;
+  font-family: var(--heading-font);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.action-button:hover {
+  background-color: #2980b9;
+}
+
+.detail-favorite-button.is-favorite {
+  background-color: var(--secondary-color);
+}
+
+.weather-section {
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 3rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.weather-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+}
+
+.current-weather {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.weather-icon-large {
+  width: 100px;
+  height: 100px;
+}
+
+.weather-icon-large img {
+  width: 100%;
+  height: 100%;
+}
+
+.current-weather-details {
+  margin-left: 1rem;
+}
+
+.current-temp {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.weather-description {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
+}
+
+.weather-metrics {
+  display: flex;
+  gap: 1.5rem;
+  color: #666;
+}
+
+.forecast {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+.forecast-day {
+  background-color: rgba(0, 0, 0, 0.03);
+  border-radius: 8px;
+  padding: 1rem;
+  text-align: center;
+}
+
+.forecast-date {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.forecast-icon {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto;
+}
+
+.forecast-icon img {
+  width: 100%;
+  height: 100%;
+}
+
+.forecast-temp {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0.5rem 0;
+}
+
+.forecast-desc {
+  font-size: 0.9rem;
+  text-transform: capitalize;
+}
+
+.maps-section {
+  margin-bottom: 3rem;
+}
+
+.maps-section h2 {
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+}
+
+.map-links {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.map-button {
+  background-color: var(--primary-color);
+  color: white;
+  text-decoration: none;
+  padding: 0.7rem 1.2rem;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  font-family: var(--heading-font);
+}
+
+.map-button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Media queries for detail page */
+@media (max-width: 992px) {
+  .detail-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  
+  .forecast {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+  }
+  
+  .forecast-day:nth-child(4),
+  .forecast-day:nth-child(5) {
+    display: none;
+  }
+}
+/* END Country Detail Page */
+
+/* START Favorites Button */
+.country-flag-container {
+  position: relative;
+}
+
+.favorite-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: none;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--primary-color);
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.favorite-button:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.1);
+}
+
+.favorite-button.active {
+  color: var(--secondary-color);
+  text-shadow: 0 0 5px rgba(230, 126, 34, 0.4);
+}
+/* END Favorites Button */
+
+/* START Favorites Page */
+.no-favorites {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--card-bg);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 2rem 0;
+}
+
+.no-favorites a {
+  font-weight: 600;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  padding: 1rem 0;
+}
+
+main h1 {
+  margin-top: 1.5rem;
+  color: var(--primary-color);
+}
+
+#favorites-count {
+  margin-bottom: 1.5rem;
+  font-style: italic;
+}
+/* END Favorites Page */
+
 @media (max-width: 768px) {
   .mobile-menu-toggle {
     display: block;
@@ -484,5 +839,49 @@ a:hover {
   .countries-grid {
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 1.5rem;
+  }
+
+  .country-detail-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  
+  .map-links {
+    flex-direction: column;
+  }
+  
+  .map-button {
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .forecast {
+    grid-template-columns: 1fr;
+  }
+  
+  .forecast-day {
+    display: flex !important;
+    align-items: center;
+    text-align: left;
+    padding: 0.75rem;
+  }
+  
+  .forecast-date {
+    width: 80px;
+    margin-bottom: 0;
+  }
+  
+  .forecast-icon {
+    margin: 0 1rem;
+  }
+  
+  .forecast-temp {
+    margin: 0 1rem 0 0;
+    width: 60px;
+  }
+  
+  .forecast-desc {
+    flex: 1;
   }
 }
