@@ -131,7 +131,7 @@ export function createCountryCard(country, isFavorite = false) {
   
   card.innerHTML = `
     <div class="country-flag-container">
-      <img src="${country.flags.png}" alt="${country.flags.alt}" class="country-flag">
+      <img src="${country.flags.png}" alt="${country.flags.alt}" class="country-flag" loading="lazy">
     </div>
     <div class="country-info">
       <h3 class="country-name">${country.name.common}</h3>
@@ -304,7 +304,7 @@ export function createWeatherHTML(weatherData, capital) {
       
       <div class="current-weather">
         <div class="weather-icon-large">
-          <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}" />
+          <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="${description}" loading="lazy" />
         </div>
         <div class="current-weather-details">
           <div class="current-temp">${temp}°F</div>
@@ -330,7 +330,7 @@ export function createWeatherHTML(weatherData, capital) {
               <div class="forecast-day">
                 <div class="forecast-date">${dayName}</div>
                 <div class="forecast-icon">
-                  <img src="https://openweathermap.org/img/wn/${dayIcon}.png" alt="${dayDesc}" />
+                  <img src="https://openweathermap.org/img/wn/${dayIcon}.png" alt="${dayDesc}" loading="lazy" />
                 </div>
                 <div class="forecast-temp">${dayTemp}°F</div>
                 <div class="forecast-desc">${dayDesc}</div>
@@ -577,7 +577,7 @@ export function populateCountryDropdown(dropdown, countries, selectorIndex, onCo
     const option = document.createElement('div');
     option.className = 'country-option';
     option.innerHTML = `
-      <img src="${country.flags.png}" alt="${country.name.common} flag" class="option-flag">
+      <img src="${country.flags.png}" alt="${country.name.common} flag" class="option-flag" loading="lazy">
       <span>${country.name.common}</span>
     `;
     
