@@ -479,7 +479,6 @@ a:hover {
 .detail-container {
   max-width: 1200px;
   margin: 2rem auto;
-  padding: 0 1rem;
 }
 
 .back-button-container {
@@ -604,7 +603,7 @@ a:hover {
 .weather-section {
   background-color: var(--card-bg);
   border-radius: 8px;
-  padding: 2rem;
+  padding: 1rem;
   margin-bottom: 3rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
@@ -793,7 +792,6 @@ main h1 {
 .compare-container {
   max-width: 1200px;
   margin: 2rem auto;
-  padding: 0 1rem;
 }
 
 .compare-container h1 {
