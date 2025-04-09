@@ -68,6 +68,38 @@ export async function loadHeaderFooter() {
 }
 
 /**
+ * Configures theme on page load
+ * Sets up listener for theme switcher
+ */
+export function setupThemeToggle() {
+  const themeToggle = document.querySelector('.theme-toggle');
+  
+  if (themeToggle) {
+    // Check for saved theme preference or respect OS preference
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const currentTheme = localStorage.getItem('theme');
+    
+    if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+      document.body.classList.add('dark-theme');
+      themeToggle.innerHTML = '☀️';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+      document.body.classList.toggle('dark-theme');
+      
+      // Update icon and save preference
+      if (document.body.classList.contains('dark-theme')) {
+        themeToggle.innerHTML = '☀️';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        themeToggle.innerHTML = '🌙';
+        localStorage.setItem('theme', 'light');
+      }
+    });
+  }
+}
+
+/**
  * Creates a country card DOM element
  * @param {Object} country The country data object
  * @returns {HTMLElement} The card DOM element
@@ -325,4 +357,234 @@ export function createErrorHTML(message) {
       </div>
     </div>
   `;
+}
+
+/**
+ * Create the compare UI layout
+ * @returns {string} HTML for the comparison UI
+ */
+export function createCompareUI() {
+  return `
+    <div class="compare-container">
+      <h1>Compare Countries</h1>
+      <p class="compare-description">Select two countries to compare their information side by side.</p>
+      
+      <div class="country-selectors">
+        <div class="country-selector-wrapper">
+          <div class="selector-container">
+            <label for="country-selector-1">First Country</label>
+            <div class="custom-select">
+              <input type="text" id="country-search-1" class="country-search" placeholder="Search for a country...">
+              <div id="dropdown-1" class="country-dropdown"></div>
+            </div>
+          </div>
+          <div id="country-card-1" class="selected-country-container">
+            <div class="placeholder-card">Select a country</div>
+          </div>
+        </div>
+        
+        <div class="country-selector-wrapper">
+          <div class="selector-container">
+            <label for="country-selector-2">Second Country</label>
+            <div class="custom-select">
+              <input type="text" id="country-search-2" class="country-search" placeholder="Search for a country...">
+              <div id="dropdown-2" class="country-dropdown"></div>
+            </div>
+          </div>
+          <div id="country-card-2" class="selected-country-container">
+            <div class="placeholder-card">Select a country</div>
+          </div>
+        </div>
+      </div>
+      
+      <div id="comparison-table" class="comparison-table-container">
+        <div class="placeholder-comparison">
+          <p>Select two countries to compare</p>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Create HTML for a selected country card
+ * @param {Object} country The country data
+ * @returns {string} HTML for the selected country card
+ */
+export function createSelectedCountryHTML(country) {
+  return `
+    <div class="selected-country">
+      <img src="${country.flags.png}" alt="${country.name.common} flag" class="selected-country-flag">
+      <div class="selected-country-info">
+        <h3>${country.name.common}</h3>
+        <p><strong>Capital:</strong> ${country.capital?.join(', ') || 'N/A'}</p>
+        <p><strong>Region:</strong> ${country.region || 'N/A'}</p>
+        <p><strong>Population:</strong> ${country.population?.toLocaleString() || 'N/A'}</p>
+      </div>
+    </div>
+  `;
+}
+
+/**
+ * Create HTML for the comparison table
+ * @param {Object} country1 First country data
+ * @param {Object} country2 Second country data
+ * @returns {string} HTML for comparison table
+ */
+export function createComparisonTableHTML(country1, country2) {
+  // Format data for both countries
+  const formatCountryData = (country) => {
+    return {
+      name: country.name.common,
+      officialName: country.name.official,
+      capital: country.capital?.join(', ') || 'N/A',
+      region: country.region || 'N/A',
+      subregion: country.subregion || 'N/A',
+      population: country.population?.toLocaleString() || 'N/A',
+      area: (country.area?.toLocaleString() || 'N/A') + ' km²',
+      languages: country.languages ? Object.values(country.languages).join(', ') : 'N/A',
+      currencies: country.currencies ? 
+        Object.values(country.currencies)
+          .map(currency => `${currency.name} (${currency.symbol || ''})`)
+          .join(', ') : 
+        'N/A',
+      timezones: country.timezones?.join(', ') || 'N/A',
+      drivingSide: country.car?.side?.charAt(0).toUpperCase() + country.car?.side?.slice(1) || 'N/A',
+      unMember: country.unMember ? 'Yes' : 'No',
+      flags: country.flags,
+      borders: country.borders?.length || 0,
+      independent: country.independent ? 'Yes' : 'No',
+      gini: country.gini ? Object.values(country.gini)[0] + '%' : 'N/A',
+      tld: country.tld?.join(', ') || 'N/A'
+    };
+  };
+  
+  const data1 = formatCountryData(country1);
+  const data2 = formatCountryData(country2);
+  
+  // Calculate which country has higher population and area
+  const populationHighlight = {
+    country1: Number(country1.population) > Number(country2.population) ? 'highlight' : '',
+    country2: Number(country2.population) > Number(country1.population) ? 'highlight' : ''
+  };
+  
+  const areaHighlight = {
+    country1: Number(country1.area) > Number(country2.area) ? 'highlight' : '',
+    country2: Number(country2.area) > Number(country1.area) ? 'highlight' : ''
+  };
+  
+  return `
+    <h2>Comparison Table</h2>
+    <div class="comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Attribute</th>
+            <th>${data1.name}</th>
+            <th>${data2.name}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Official Name</td>
+            <td>${data1.officialName}</td>
+            <td>${data2.officialName}</td>
+          </tr>
+          <tr>
+            <td>Capital</td>
+            <td>${data1.capital}</td>
+            <td>${data2.capital}</td>
+          </tr>
+          <tr>
+            <td>Region</td>
+            <td>${data1.region}</td>
+            <td>${data2.region}</td>
+          </tr>
+          <tr>
+            <td>Subregion</td>
+            <td>${data1.subregion}</td>
+            <td>${data2.subregion}</td>
+          </tr>
+          <tr>
+            <td>Population</td>
+            <td class="${populationHighlight.country1}">${data1.population}</td>
+            <td class="${populationHighlight.country2}">${data2.population}</td>
+          </tr>
+          <tr>
+            <td>Area</td>
+            <td class="${areaHighlight.country1}">${data1.area}</td>
+            <td class="${areaHighlight.country2}">${data2.area}</td>
+          </tr>
+          <tr>
+            <td>Languages</td>
+            <td>${data1.languages}</td>
+            <td>${data2.languages}</td>
+          </tr>
+          <tr>
+            <td>Currencies</td>
+            <td>${data1.currencies}</td>
+            <td>${data2.currencies}</td>
+          </tr>
+          <tr>
+            <td>Driving Side</td>
+            <td>${data1.drivingSide}</td>
+            <td>${data2.drivingSide}</td>
+          </tr>
+          <tr>
+            <td>UN Member</td>
+            <td>${data1.unMember}</td>
+            <td>${data2.unMember}</td>
+          </tr>
+          <tr>
+            <td>Independent</td>
+            <td>${data1.independent}</td>
+            <td>${data2.independent}</td>
+          </tr>
+          <tr>
+            <td>Bordering Countries</td>
+            <td>${data1.borders}</td>
+            <td>${data2.borders}</td>
+          </tr>
+          <tr>
+            <td>Top-Level Domain</td>
+            <td>${data1.tld}</td>
+            <td>${data2.tld}</td>
+          </tr>
+          ${data1.gini !== 'N/A' || data2.gini !== 'N/A' ? `
+          <tr>
+            <td>Gini Index (Income Inequality)</td>
+            <td>${data1.gini}</td>
+            <td>${data2.gini}</td>
+          </tr>
+          ` : ''}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+/**
+ * Create HTML for country dropdown
+ * @param {HTMLElement} dropdown The dropdown element to populate
+ * @param {Array} countries The array of countries to include
+ * @param {number} selectorIndex The index of the selector (1 or 2)
+ * @param {Function} onCountrySelect Callback when a country is selected
+ */
+export function populateCountryDropdown(dropdown, countries, selectorIndex, onCountrySelect) {
+  dropdown.innerHTML = '';
+  
+  countries.forEach(country => {
+    const option = document.createElement('div');
+    option.className = 'country-option';
+    option.innerHTML = `
+      <img src="${country.flags.png}" alt="${country.name.common} flag" class="option-flag">
+      <span>${country.name.common}</span>
+    `;
+    
+    option.addEventListener('click', () => {
+      onCountrySelect(country.cca3, selectorIndex);
+    });
+    
+    dropdown.appendChild(option);
+  });
 }

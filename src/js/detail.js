@@ -1,4 +1,4 @@
-import { loadHeaderFooter, qs, createCountryDetailHTML, createErrorHTML } from "./utils.mjs";
+import { loadHeaderFooter, setupThemeToggle, qs, createCountryDetailHTML, createErrorHTML } from "./utils.mjs";
 import { getCountryByCode, getCurrentWeather } from "./data.mjs";
 import { setupFavoritesButton } from "./favorites.mjs";
 
@@ -9,6 +9,9 @@ const mainElement = qs("main");
 document.addEventListener("DOMContentLoaded", async () => {
   // Load header and footer
   await loadHeaderFooter();
+
+  // Setup theme toggler
+  setupThemeToggle();
 
   // Get country code from URL
   const urlParams = new URLSearchParams(window.location.search);

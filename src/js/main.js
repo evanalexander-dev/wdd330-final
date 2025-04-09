@@ -1,4 +1,4 @@
-import { qs, loadHeaderFooter, renderCountryCards, createErrorHTML } from "./utils.mjs";
+import { qs, loadHeaderFooter, setupThemeToggle, renderCountryCards, createErrorHTML } from "./utils.mjs";
 import { initSearchFilters } from "./search.mjs";
 import { getAllBasicCountryData } from "./data.mjs";
 
@@ -12,6 +12,9 @@ const resultsCountElement = qs("#results-count");
 document.addEventListener("DOMContentLoaded", async () => {
   // Load header and footer
   await loadHeaderFooter();
+
+  // Setup theme toggler
+  setupThemeToggle();
 
   // Initialize search and filters
   initSearchFilters(applyFilters, applyFilters);

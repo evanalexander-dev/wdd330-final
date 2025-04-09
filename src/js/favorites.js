@@ -1,4 +1,4 @@
-import { loadHeaderFooter, renderCountryCards, qs } from "./utils.mjs";
+import { loadHeaderFooter, setupThemeToggle, renderCountryCards, qs } from "./utils.mjs";
 import { getFavorites } from "./favorites.mjs";
 import { getAllBasicCountryData } from "./data.mjs";
 
@@ -10,6 +10,9 @@ const countriesContainer = qs(".countries-grid") || document.createElement('div'
 document.addEventListener("DOMContentLoaded", async () => {
   // Load header and footer
   await loadHeaderFooter();
+
+  // Setup theme toggler
+  setupThemeToggle();
 
   // Create a main element if it doesn't exist
   if (!qs("main")) {
