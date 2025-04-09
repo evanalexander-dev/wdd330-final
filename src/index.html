@@ -6,13 +6,129 @@
     <title>Home | Global Explorer</title>
     <meta name="description" content="Global Explorer Home Page" />
     <meta name="author" content="Evan Alexander" />
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.ico" />
     <link rel="stylesheet" href="/css/style.css" />
     <script src="/js/main.js" type="module"></script>
   </head>
   <body>
     <header id="main-header"></header>
-    <main></main>
+    <main>
+      <div class="search-filters-container">
+        <div class="search-wrapper">
+          <form id="country-search-form" class="search-form">
+            <div class="search-input-container">
+              <input
+                type="text"
+                id="country-search-input"
+                class="search-input"
+                placeholder="Search for a country..."
+                aria-label="Search for a country"
+              />
+              <button
+                type="submit"
+                class="search-button"
+                aria-label="Submit search"
+              >
+                🔎
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="filters-wrapper">
+          <button id="toggle-filters-btn" class="toggle-filters-btn">
+            Filters
+          </button>
+
+          <div id="filters-panel" class="filters-panel">
+            <div class="filter-group">
+              <h3>Region</h3>
+              <div class="filter-options">
+                <label class="filter-checkbox">
+                  <input type="checkbox" name="region" value="africa" />
+                  <span class="checkbox-label">Africa</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox" name="region" value="americas" />
+                  <span class="checkbox-label">Americas</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox" name="region" value="asia" />
+                  <span class="checkbox-label">Asia</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox" name="region" value="europe" />
+                  <span class="checkbox-label">Europe</span>
+                </label>
+                <label class="filter-checkbox">
+                  <input type="checkbox" name="region" value="oceania" />
+                  <span class="checkbox-label">Oceania</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h3>Population</h3>
+              <div class="filter-options">
+                <label class="filter-radio">
+                  <input type="radio" name="population" value="any" checked />
+                  <span class="radio-label">Any population</span>
+                </label>
+                <label class="filter-radio">
+                  <input type="radio" name="population" value="small" />
+                  <span class="radio-label">Less than 1 million</span>
+                </label>
+                <label class="filter-radio">
+                  <input type="radio" name="population" value="medium" />
+                  <span class="radio-label">1-100 million</span>
+                </label>
+                <label class="filter-radio">
+                  <input type="radio" name="population" value="large" />
+                  <span class="radio-label">More than 100 million</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="filter-group">
+              <h3>Sort By</h3>
+              <div class="filter-options">
+                <label class="filter-radio">
+                  <input type="radio" name="sort" value="name" checked />
+                  <span class="radio-label">Name (A to Z)</span>
+                </label>
+                <label class="filter-radio">
+                  <input type="radio" name="sort" value="name-desc" />
+                  <span class="radio-label">Name (Z to A)</span>
+                </label>
+                <label class="filter-radio">
+                  <input type="radio" name="sort" value="population" />
+                  <span class="radio-label">Population (low to high)</span>
+                </label>
+                <label class="filter-radio">
+                  <input type="radio" name="sort" value="population-desc" />
+                  <span class="radio-label">Population (high to low)</span>
+                </label>
+              </div>
+            </div>
+
+            <div class="filter-actions">
+              <button id="apply-filters-btn" class="apply-filters-btn">
+                Apply Filters
+              </button>
+              <button id="clear-filters-btn" class="clear-filters-btn">
+                Clear All
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="active-filters" class="active-filters"></div>
+      <div class="results-info">
+        <p id="results-count">Showing all countries</p>
+      </div>
+      <div class="countries-grid"></div>
+    </main>
     <footer id="main-footer"></footer>
   </body>
 </html>
