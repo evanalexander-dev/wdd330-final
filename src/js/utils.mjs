@@ -577,7 +577,7 @@ export function populateCountryDropdown(dropdown, countries, selectorIndex, onCo
     const option = document.createElement('div');
     option.className = 'country-option';
     option.innerHTML = `
-      <img src="${country.flags.png}" alt="${country.name.common} flag" class="option-flag" loading="lazy">
+      <img src="${country.flags.png}" alt="${country.name.common} flag" class="option-flag" loading="lazy"giut>
       <span>${country.name.common}</span>
     `;
     
